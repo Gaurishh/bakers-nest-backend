@@ -23,6 +23,7 @@ app.use('/api/products/', productsRoute)
 app.use('/api/orders', ordersRoute)
 
 app.get("/", (req, res) => {
+    res.setHeader("Access-Control-Allow-Credentials", "true");
     res.send("Server working 🔥" + port);
 });
 
