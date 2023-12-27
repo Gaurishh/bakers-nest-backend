@@ -31,7 +31,7 @@ app.use('/api/products/', productsRoute)
 app.use('/api/orders', ordersRoute)
 
 app.get("/", (req, res) => {
-    res.send("Server working 🔥" + port);
+    res.send("Server is up and running!");
 });
 
 const port = process.env.PORT || 8000;
