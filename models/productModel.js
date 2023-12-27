@@ -3,14 +3,14 @@ const mongoose = require('mongoose');
 const productSchema = mongoose.Schema({
 
     name: {type: String, require},
-    varients: [], 
+    varients: [],
     prices: [],
     category: {type: String, require},
     image: {type: String, require},
     description: {type: String, require}
 
 }, {
-    timestamps: true,
+    timestamps: false,
 })
 
 const productModel = mongoose.model('products', productSchema);

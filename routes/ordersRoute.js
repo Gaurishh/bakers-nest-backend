@@ -1,13 +1,10 @@
 const express = require('express');
 const router = express.Router();
-
 const RazorPay = require("razorpay");
 const crypto = require("crypto");
-
 const Order = require('../models/orderModel');
 
 router.post("/placeOrder", async (req, res) => {
-
     try {
         const instance = new RazorPay({
             key_id: process.env.KEY_ID,
@@ -36,7 +33,6 @@ router.post("/placeOrder", async (req, res) => {
 router.post("/verify", async(req, res) => {
     try {        
         const {response, user, cartItems, amount} = req.body;
-
         const {razorpay_payment_id, razorpay_order_id, razorpay_signature} = response;
 
         const sign = razorpay_order_id + "|" + razorpay_payment_id;
@@ -58,7 +54,6 @@ router.post("/verify", async(req, res) => {
         else{
             return res.status(400).json({message: "Invalid signature sent!"});
         }
-
     } catch (error) {
         console.log(error);
         res.status(500).json({message: "Internal Server Error!"});
@@ -73,6 +68,34 @@ router.post("/getuserorders", async(req, res) => {
     } catch (error) {
         return res.status(400).json({ message: 'Something went wrong' });
     }
-  });
+});
+
+router.get("/getallorders", async(req, res) => {
+
+    try {
+        const orders = await Order.find({}).sort({createdAt : -1})
+        res.send(orders)
+    } catch (error) {
+        return res.status(400).json({ message: error});
+    }
+
+});
+
+router.post("/deliverorder", async(req, res) => {
+
+   const orderid = req.body.orderid
+   try {
+       const order = await Order.findOne({_id : orderid}).exec()
+       order.isDelivered = true
+       await order.save()
+       res.send('Order Delivered Successfully')
+   } catch (error) {
+
+       return res.status(400).json({ message: "Something went wrong!"});
+       
+   }
+ 
+});
+
 
 module.exports = router;

@@ -6,7 +6,8 @@ const orderSchema = mongoose.Schema({
     userId: {type: String, require},
     orderItems: [],
     orderAmount: {type: Number, require},
-    transactionId: {type: String, require}
+    transactionId: {type: String, require},
+    isDelivered : {type:Boolean , require , default: false}
 }, {timestamps: true})
 
 module.exports = mongoose.model('orders', orderSchema)
