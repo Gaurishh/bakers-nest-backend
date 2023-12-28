@@ -5,7 +5,7 @@ const { models } = require("../db");
 
 router.get("/getallproducts", async (req, res) => {
     try {
-        const products = await Product.find({}).exec()
+        const products = await Product.find({}).sort({category: 1})
         res.send(products)
     } catch (error) {
         return res.status(400).json({message: error});
