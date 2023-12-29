@@ -7,8 +7,8 @@ const productSchema = mongoose.Schema({
     prices: [],
     category: {type: String, require},
     image: {type: String, require},
-    description: {type: String, require}
-
+    description: {type: String, require},
+    show : {type:Boolean , require , default: true}
 }, {
     timestamps: false,
 })

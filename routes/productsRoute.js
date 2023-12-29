@@ -68,6 +68,23 @@ router.post("/editproduct", async (req, res) => {
     }
 })
 
+router.post("/productvisibility", async (req, res) => {
+    const productId = req.body.productId;
+    const value = req.body.value;
+
+    try {
+        const product = await Product.findOne({_id: productId}).exec();
+        product.show = value
+        console.log(product);
+
+        await product.save();
+
+        res.send("Product visibility toggled!")
+    } catch (error) {
+        return res.status(400).json({message: error})
+    }
+})
+
 router.post("/deleteproduct", async(req, res) => {
     const productid = req.body.productid
 
