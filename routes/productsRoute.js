@@ -5,10 +5,25 @@ const { models } = require("../db");
 
 router.get("/getallproducts", async (req, res) => {
     try {
-        const products = await Product.find({}).sort({category: 1})
+        const products = await Product.find({}).sort({category: 1, _id: 1})
         res.send(products)
     } catch (error) {
         return res.status(400).json({message: error});
+    }
+});
+
+router.get("/getproductsbypage", async (req, res) => {
+    const limit = parseInt(req.query.limit) || 0;
+    const skip = parseInt(req.query.skip) || 0;
+    try {
+        // Use skip and limit in the Mongo query
+        const products = await Product.find({})
+          .sort({ category: 1, _id: 1 })
+          .skip(skip)
+          .limit(limit);
+        res.send(products);
+    } catch (error) {
+        return res.status(400).json({ message: error });
     }
 });
 
