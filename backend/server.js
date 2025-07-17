@@ -25,7 +25,7 @@ app.use("/api/orders", ordersRoute);
 // Health check route for uptime monitoring
 app.get("/ping", (req, res) => {
   console.log("pong");
-  res.status(200).send("pong");
+  res.send("pong");
 });
 
 // Port configuration should be set before using it
