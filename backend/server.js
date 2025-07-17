@@ -30,6 +30,11 @@ const ordersRoute = require('./routes/ordersRoute')
 app.use('/api/products/', productsRoute)
 app.use('/api/orders', ordersRoute)
 
+app.get('/ping', (req, res) => {
+  console.log('pong');
+  res.status(200).send('pong');
+});
+
 app.get("/", (req, res) => {
     res.send("Server working 🔥" + port);
 });
