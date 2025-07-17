@@ -29,7 +29,7 @@ app.use((req, res) => {
 // Health check route for uptime monitoring
 app.get("/ping", (req, res) => {
   console.log("pong");
-  res.send("pong");
+  res.status(200).send("pong");
 });
 
 // Port configuration should be set before using it
