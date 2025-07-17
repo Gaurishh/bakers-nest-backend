@@ -22,6 +22,10 @@ const ordersRoute = require("./routes/ordersRoute");
 app.use("/api/products", productsRoute);
 app.use("/api/orders", ordersRoute);
 
+app.use((req, res) => {
+  res.status(404).send("Route not found");
+});
+
 // Health check route for uptime monitoring
 app.get("/ping", (req, res) => {
   console.log("pong");
